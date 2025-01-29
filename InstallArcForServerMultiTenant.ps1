@@ -144,8 +144,7 @@ if ([string]::IsNullOrEmpty($token)) {
         }
 
     $env:ACCESS_TOKEN = $machine_info.access_token;
-}
-else{
+} else{
     $env:ACCESS_TOKEN = $token;
 }
 
@@ -177,7 +176,12 @@ else{
     if ($LASTEXITCODE -ne 0) { exit 1; }
 
     # Run connect command
-    $retryCount = 3
-    while($retryCount-- -gt 0) {
-	   & "$env:ProgramW6432\AzureConnectedMachineAgent\azcmagent.exe" connect  --resource-group "$env:RESOURCE_GROUP" --tenant-id "$env:TENANT_ID" --location "$env:LOCATION" --subscription-id "$env:SUBSCRIPTION_ID" --cloud "$env:CLOUD" --correlation-id "$env:CORRELATION_ID" --access-token "$env:ACCESS_TOKEN";
+    & "$env:ProgramW6432\AzureConnectedMachineAgent\azcmagent.exe" connect --resource-group "$env:RESOURCE_GROUP" --tenant-id "$env:TENANT_ID" --location "$env:LOCATION" --subscription-id "$env:SUBSCRIPTION_ID" --cloud "$env:CLOUD" --correlation-id "$env:CORRELATION_ID" --access-token "$env:ACCESS_TOKEN"
+
+    # Check the exit code
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Command failed with exit code $LASTEXITCODE"
+        exit $LASTEXITCODE
+    } else {
+        Write-Output "Command executed successfully."
     }

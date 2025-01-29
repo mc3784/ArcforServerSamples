@@ -459,9 +459,9 @@
                                 "autoUpgradeMinorVersion": true,
                                 "settings": {
                                     "fileUris": [
-                                        "https://micerustorage.blob.core.windows.net/powershellscripts/InstallArcForServerWithPassedFFParams.ps1"
+                                        "https://raw.githubusercontent.com/mc3784/ArcforServerSamples/refs/heads/main/InstallArcForServerMultiTenant.ps1"
                                     ],
-                                    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File InstallArcForServerWithPassedFFParams.ps1 -principalId ', reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId, ' -cloudEnv ', parameters('cloudEnv'), ' -token ', parameters('token'), ' -arcTenantId ', parameters('arcTenantId'),' -arcSubscriptionId ', parameters('arcSubscriptionId'),' -arcResourceGroup ', parameters('arcResourceGroup'),' -arcLocation ', parameters('arcLocation'))]"
+                                    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File InstallArcForServerMultiTenant.ps1 -principalId ', reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId, ' -cloudEnv ', parameters('cloudEnv'), ' -token ', parameters('token'), ' -arcTenantId ', parameters('arcTenantId'),' -arcSubscriptionId ', parameters('arcSubscriptionId'),' -arcResourceGroup ', parameters('arcResourceGroup'),' -arcLocation ', parameters('arcLocation'))]"
                                 }
                             }
                         }
