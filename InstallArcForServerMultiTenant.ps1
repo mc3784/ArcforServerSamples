@@ -185,3 +185,5 @@ if ([string]::IsNullOrEmpty($token)) {
     } else {
         Write-Output "Command executed successfully."
     }
+    Reg add "HKLM\SYSTEM\ControlSet001\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 1 /f
+    Restart-Computer
