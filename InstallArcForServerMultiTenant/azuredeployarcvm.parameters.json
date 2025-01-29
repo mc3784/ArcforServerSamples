@@ -1,116 +1,116 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
-            "value": "eastus2"
-        },
-        "networkInterfaceName": {
-            "value": "win-miceru07453"
-        },
-        "enableAcceleratedNetworking": {
-            "value": true
-        },
-        "networkSecurityGroupName": {
-            "value": "win-miceru07-nsg"
-        },
-        "networkSecurityGroupRules": {
-            "value": []
-        },
-        "subnetName": {
-            "value": "default"
-        },
-        "virtualNetworkName": {
-            "value": "win-miceru07-vnet"
-        },
-        "addressPrefixes": {
-            "value": [
-                "10.0.0.0/16"
-            ]
-        },
-        "subnetAddressPrefix": {
-            "value": "10.0.0.0/24"
-        },
-        "publicIpAddressName": {
-            "value": "win-miceru07-ip"
-        },
-        "publicIpAddressType": {
-            "value": "Static"
-        },
-        "publicIpAddressSku": {
-            "value": "Standard"
-        },
-        "pipDeleteOption": {
-            "value": "Detach"
-        },
-        "virtualMachineName": {
-            "value": "win-miceru07"
-        },
-        "virtualMachineComputerName": {
-            "value": "win-miceru07"
-        },
-        "virtualMachineRG": {
-            "value": "ArcVMTestrg"
-        },
-        "osDiskType": {
-            "value": "Premium_LRS"
-        },
-        "osVersion": {
-            "value": "2025-datacenter"
-        },
-        "osDiskDeleteOption": {
-            "value": "Delete"
-        },
-        "virtualMachineSize": {
-            "value": "Standard_D2s_v3"
-        },
-        "nicDeleteOption": {
-            "value": "Detach"
-        },
-        "hibernationEnabled": {
-            "value": false
-        },
-        "adminUsername": {
-            "value": "miceru"
-        },
-        "adminPassword": {
-            "value": null
-        },
-        "patchMode": {
-            "value": "AutomaticByOS"
-        },
-        "enableHotpatching": {
-            "value": false
-        },
-        "identityName": {
-            "value": "win-miceru07453"
-        },
-        "identityLocation": {
-            "value": "eastus2"
-        },
-        "roleNameGuid": {
-            "value": "7577582e-bbe7-4d9f-95c3-2bcb9df09194"
-        },
-        "builtInRoleType": {
-            "value": "ArcAdmin"
-        },
-        "cloudEnv": {
-            "value": "AzureUSGovernment"
-        },
-        "token": {
-            "value": "token"
-        },
-        "arcTenantId": {
-            "value": "63296244-ce2c-46d8-bc36-3e558792fbee"
-        },
-        "arcSubscriptionId": {
-            "value": "7d88b280-6c46-4602-aacc-c7315b9615b7"
-        },
-        "arcResourceGroup": {
-            "value": "micerutest_01"
-        },
-        "arcLocation": {
-            "value": "usgovvirginia"
-        }
+      "location": {
+        "value": "eastus2"
+      },
+      "networkInterfaceName": {
+        "value": "win-miceru01453"
+      },
+      "enableAcceleratedNetworking": {
+        "value": true
+      },
+      "networkSecurityGroupName": {
+        "value": "win-miceru01-nsg"
+      },
+      "networkSecurityGroupRules": {
+        "value": []
+      },
+      "subnetName": {
+        "value": "default"
+      },
+      "virtualNetworkName": {
+        "value": "win-miceru01-vnet"
+      },
+      "addressPrefixes": {
+        "value": [
+          "10.0.0.0/16"
+        ]
+      },
+      "subnetAddressPrefix": {
+        "value": "10.0.0.0/24"
+      },
+      "publicIpAddressName": {
+        "value": "win-miceru01-ip"
+      },
+      "publicIpAddressType": {
+        "value": "Static"
+      },
+      "publicIpAddressSku": {
+        "value": "Standard"
+      },
+      "pipDeleteOption": {
+        "value": "Detach"
+      },
+      "virtualMachineName": {
+        "value": "win-miceru01"
+      },
+      "virtualMachineComputerName": {
+        "value": "win-miceru01"
+      },
+      "virtualMachineRG": {
+        "value": "ArcVMTestrg"
+      },
+      "osDiskType": {
+        "value": "Premium_LRS"
+      },
+      "OSVersion": {
+        "value": "2025-datacenter"
+      },
+      "osDiskDeleteOption": {
+        "value": "Delete"
+      },
+      "virtualMachineSize": {
+        "value": "Standard_D2s_v3"
+      },
+      "nicDeleteOption": {
+        "value": "Detach"
+      },
+      "hibernationEnabled": {
+        "value": null
+      },
+      "adminUsername": {
+        "value": "miceru"
+      },
+      "adminPassword": {
+        "value": "[newGuid()]"
+      },
+      "patchMode": {
+        "value": "AutomaticByOS"
+      },
+      "enableHotpatching": {
+        "value": null
+      },
+      "identityName": {
+        "value": "win-miceru01453"
+      },
+      "identityLocation": {
+        "value": "eastus2"
+      },
+      "roleNameGuid": {
+        "value": "7577582e-bbe7-4d9f-95c3-2bcb9df09194"
+      },
+      "builtInRoleType": {
+        "value": "ArcAdmin"
+      },
+      "cloudEnv": {
+        "value": "AzureCloud"
+      },
+      "token": {
+        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IllUY2VPNUlKeXlxUjZqekRTNWlBYnBlNDJKdyIsImtpZCI6IllUY2VPNUlKeXlxUjZqekRTNWlBYnBlNDJKdyJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuY29yZS53aW5kb3dzLm5ldC8iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC83MmY5ODhiZi04NmYxLTQxYWYtOTFhYi0yZDdjZDAxMWRiNDcvIiwiaWF0IjoxNzM4MTYyMzg2LCJuYmYiOjE3MzgxNjIzODYsImV4cCI6MTczODE2Nzk4OSwiX2NsYWltX25hbWVzIjp7Imdyb3VwcyI6InNyYzEifSwiX2NsYWltX3NvdXJjZXMiOnsic3JjMSI6eyJlbmRwb2ludCI6Imh0dHBzOi8vZ3JhcGgud2luZG93cy5uZXQvNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3L3VzZXJzLzg2MTg2YzA4LWFlZDgtNDAxZS05MzI3LTIxMThmYzc5MmRhNC9nZXRNZW1iZXJPYmplY3RzIn19LCJhY3IiOiIxIiwiYWlvIjoiQVpRQWEvOFpBQUFBbVo3ZnUyc0VZcDVlbXZHKzJJYTRHcjVOYkR2VjZncndUUTRuaVk3QTNDSEM1SFhpb1d4dGlydTZNTk5wcTJQbS8vNGF6YTZHVUJ6dnlJb1VCVy91SjJKenlEbHJ0K0tyc3NoUmh2clE1QllpTE1GZTh6dk5qVlVKWEZDU0RKZ0V2TTZKcTUwbGFxamU4QnhNNlBoZXQxRks3SUZOcDlxVVZidUozWEtVblhEdk5HTmtHVlRPZ2c0SkdicU5ldEpYIiwiYW1yIjpbInJzYSIsIm1mYSJdLCJhcHBpZCI6IjE5NTBhMjU4LTIyN2ItNGUzMS1hOWNmLTcxNzQ5NTk0NWZjMiIsImFwcGlkYWNyIjoiMCIsImNhcG9saWRzX2xhdGViaW5kIjpbIjI5Mzk5Y2Y5LTliNmItNDIwNS1iNWIzLTEzYTEzNGU5YjIzMyJdLCJkZXZpY2VpZCI6IjY1NmJlMDJlLTRhNjAtNGVlMy1hZGZhLTAyOThmZjY1OGNiMiIsImZhbWlseV9uYW1lIjoiQ2VydSIsImdpdmVuX25hbWUiOiJNaWNoZWxlIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiMjYwMDo2YzVhOjVjM2Y6YTk2Yzo1MDU0OjFiZmM6NjYyODo2MzFlIiwibmFtZSI6Ik1pY2hlbGUgQ2VydSIsIm9pZCI6Ijg2MTg2YzA4LWFlZDgtNDAxZS05MzI3LTIxMThmYzc5MmRhNCIsIm9ucHJlbV9zaWQiOiJTLTEtNS0yMS0xMjQ1MjUwOTUtNzA4MjU5NjM3LTE1NDMxMTkwMjEtMTk4NDUwNiIsInB1aWQiOiIxMDAzMjAwMEMxQkMzMUIxIiwicmgiOiIxLkFSb0F2NGo1Y3ZHR3IwR1JxeTE4MEJIYlIwWklmM2tBdXRkUHVrUGF3ZmoyTUJNYUFCY2FBQS4iLCJzY3AiOiJ1c2VyX2ltcGVyc29uYXRpb24iLCJzaWQiOiIwMGI5YmFmOC1jZGNmLTEwMmQtMDczZi05YWMxMmU0MjM1Y2UiLCJzdWIiOiI0SUhxZHBPMVdVYjdwTmpfcTZUcHQteTYtbi1lX1JMTXdGT3F6LTl3ZzRJIiwidGlkIjoiNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3IiwidW5pcXVlX25hbWUiOiJtaWNlcnVAbWljcm9zb2Z0LmNvbSIsInVwbiI6Im1pY2VydUBtaWNyb3NvZnQuY29tIiwidXRpIjoibDF3UEh4bVJQa2VkbkFlYml6cWNBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiYjc5ZmJmNGQtM2VmOS00Njg5LTgxNDMtNzZiMTk0ZTg1NTA5Il0sInhtc19jYWUiOiIxIiwieG1zX2NjIjpbIkNQMSJdLCJ4bXNfZmlsdGVyX2luZGV4IjpbIjI2Il0sInhtc19pZHJlbCI6IjEgMTIiLCJ4bXNfcmQiOiIwLjQyTGxZQlJpbEFJQSIsInhtc19zc20iOiIxIiwieG1zX3RjZHQiOjEyODkyNDE1NDd9.Dljnz3qb7yqCAChuV67zVT1E0ncvnquHonrrqkNELHOhD1gzCzjp5sYMssgcbfTnggXPWbYVGEhYfDGBX0TXzMt-EbLxvBuQjGYTKVf-P-cbhZf9TNzkb8J_c4HJu2KBcE9CjZ1bqQ-OnDDhPEVosuriz4xHjodHE0Q6GS46Nrn1Hh-c_70snd8xKdyT9a0CYa7b5r7q0QZZWxyFyAAZHJo4waqpfi31kPkA0EVdwM4jTQE2SW4R7KeILN601HI8F6qpBYHNvUKXqcNt-OmJ982fyn_2a2PgHEi2fJODkMQWNFPhP6bljoWZs734BsxAfB_T5-D56BW8xYvy3aRWag"
+      },
+      "arcTenantId": {
+        "value": "63296244-ce2c-46d8-bc36-3e558792fbee"
+      },
+      "arcSubscriptionId": {
+        "value": "7d88b280-6c46-4602-aacc-c7315b9615b7"
+      },
+      "arcResourceGroup": {
+        "value": "miceruTest01_rg"
+      },
+      "arcLocation": {
+        "value": "eastus2euap"
+      }
     }
-}
+  }
