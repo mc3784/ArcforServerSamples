@@ -1,0 +1,116 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus2"
+        },
+        "networkInterfaceName": {
+            "value": "win-miceru07453"
+        },
+        "enableAcceleratedNetworking": {
+            "value": true
+        },
+        "networkSecurityGroupName": {
+            "value": "win-miceru07-nsg"
+        },
+        "networkSecurityGroupRules": {
+            "value": []
+        },
+        "subnetName": {
+            "value": "default"
+        },
+        "virtualNetworkName": {
+            "value": "win-miceru07-vnet"
+        },
+        "addressPrefixes": {
+            "value": [
+                "10.0.0.0/16"
+            ]
+        },
+        "subnetAddressPrefix": {
+            "value": "10.0.0.0/24"
+        },
+        "publicIpAddressName": {
+            "value": "win-miceru07-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Static"
+        },
+        "publicIpAddressSku": {
+            "value": "Standard"
+        },
+        "pipDeleteOption": {
+            "value": "Detach"
+        },
+        "virtualMachineName": {
+            "value": "win-miceru07"
+        },
+        "virtualMachineComputerName": {
+            "value": "win-miceru07"
+        },
+        "virtualMachineRG": {
+            "value": "ArcVMTestrg"
+        },
+        "osDiskType": {
+            "value": "Premium_LRS"
+        },
+        "osVersion": {
+            "value": "2025-datacenter"
+        },
+        "osDiskDeleteOption": {
+            "value": "Delete"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D2s_v3"
+        },
+        "nicDeleteOption": {
+            "value": "Detach"
+        },
+        "hibernationEnabled": {
+            "value": false
+        },
+        "adminUsername": {
+            "value": "miceru"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "enableHotpatching": {
+            "value": false
+        },
+        "identityName": {
+            "value": "win-miceru07453"
+        },
+        "identityLocation": {
+            "value": "eastus2"
+        },
+        "roleNameGuid": {
+            "value": "7577582e-bbe7-4d9f-95c3-2bcb9df09194"
+        },
+        "builtInRoleType": {
+            "value": "ArcAdmin"
+        },
+        "cloudEnv": {
+            "value": "AzureUSGovernment"
+        },
+        "token": {
+            "value": "token"
+        },
+        "arcTenantId": {
+            "value": "63296244-ce2c-46d8-bc36-3e558792fbee"
+        },
+        "arcSubscriptionId": {
+            "value": "7d88b280-6c46-4602-aacc-c7315b9615b7"
+        },
+        "arcResourceGroup": {
+            "value": "micerutest_01"
+        },
+        "arcLocation": {
+            "value": "usgovvirginia"
+        }
+    }
+}
