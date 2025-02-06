@@ -107,7 +107,7 @@
             "value": "c90795fa-c037-499b-8287-139a1b075851"
         },
         "arcResourceGroup": {
-            "value": "miceru_rg"
+            "value": "miceru_rg01"
         },
         "arcLocation": {
             "value": "eastus2euap"
