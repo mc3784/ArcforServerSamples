@@ -1,8 +1,15 @@
 #!/bin/bash
 
 cloudEnv="AzureCloud"
-principalId=""
 
+# Parse command-line arguments
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -principalId) principalId="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
 while getopts "c:p:" opt; do
   case $opt in
     c) cloudEnv="$OPTARG"
