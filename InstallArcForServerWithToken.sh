@@ -1,15 +1,8 @@
 #!/bin/bash
 
 cloudEnv="AzureCloud"
+principalId="$2"
 
-# Parse command-line arguments
-while [[ "$#" -gt 0 ]]; do
-    case $1 in
-        -principalId) principalId="$2"; shift ;;
-        *) echo "Unknown parameter passed: $1"; exit 1 ;;
-    esac
-    shift
-done
 while getopts "c:p:" opt; do
   case $opt in
     c) cloudEnv="$OPTARG"
@@ -46,22 +39,6 @@ get_machine_details() {
   echo "$access_token,$subscriptionID,$resourceGroupName,$resourceLocation"
 }
 
-restart_as_admin() {
-  echo "This script requires administrator permissions to install the Azure Connected Machine Agent. Attempting to restart script with elevated permissions..."
-  sudo bash "$scriptPath" -c "$cloudEnv" -p "$principalId"
-  exit 0
-}
-
-if [ "$EUID" -ne 0 ]; then
-  if [ -t 1 ]; then
-    restart_as_admin
-  else
-    echo "This script requires administrator permissions to install the Azure Connected Machine Agent. Please run this script as Administrator."
-    exit 1
-  fi
-fi
-
-export MSFT_ARC_TEST="true"
 
 retryCount=5
 sleepSeconds=3
