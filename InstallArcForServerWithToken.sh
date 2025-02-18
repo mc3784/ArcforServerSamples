@@ -41,7 +41,8 @@ get_machine_details() {
 retryCount=5
 sleepSeconds=3
 
-export MSFT_ARC_TEST="true"
+echo 'export MSFT_ARC_TEST="true"' >> ~/.bashrc
+source ~/.bashrc
 
 if [ "$cloudEnv" == "AzureCloud" ]; then
   export TENANT_ID="72f988bf-86f1-41af-91ab-2d7cd011db47"
