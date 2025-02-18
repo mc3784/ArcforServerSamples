@@ -41,6 +41,8 @@ get_machine_details() {
 retryCount=5
 sleepSeconds=3
 
+export MSFT_ARC_TEST="true"
+
 if [ "$cloudEnv" == "AzureCloud" ]; then
   export TENANT_ID="72f988bf-86f1-41af-91ab-2d7cd011db47"
   export AUTH_TYPE="principal"
