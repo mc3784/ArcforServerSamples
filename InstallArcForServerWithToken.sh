@@ -19,8 +19,6 @@ if [ -z "$principalId" ]; then
   exit 1
 fi
 
-scriptPath=$(realpath "$0")
-
 get_machine_details() {
   local principalId=$1
 
