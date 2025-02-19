@@ -1,5 +1,6 @@
 #!/bin/bash
 export MSFT_ARC_TEST=true
+principalId="$2"
 
 if [ -z "$principalId" ]; then
   echo "Error: principalId is required."
