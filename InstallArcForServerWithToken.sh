@@ -1,5 +1,6 @@
 #!/bin/bash
 export MSFT_ARC_TEST=true
+cloudEnv="AzureCloud"
 
 while getopts "c:p:" opt; do
   case $opt in
