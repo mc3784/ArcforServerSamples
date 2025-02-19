@@ -1,20 +1,7 @@
 #!/bin/bash
 
 cloudEnv="AzureCloud"
-principalId=""
+principalId="$2"
 
-while getopts "c:p:" opt; do
-  case $opt in
-    c) cloudEnv="$OPTARG"
-    ;;
-    p) principalId="$OPTARG"
-    ;;
-    \?) echo "Invalid option -$OPTARG" >&2
-    ;;
-  esac
-done
-
-if [ -z "$principalId" ]; then
-  echo "Error: principalId is required."
-  exit 1
-fi
+echo 'export MSFT_ARC_TEST="true"' >> ~/.bashrc
+source ~/.bashrc
