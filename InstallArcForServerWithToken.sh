@@ -1,6 +1,11 @@
 #!/bin/bash
 export MSFT_ARC_TEST=true
 
+if [ -z "$MSFT_ARC_TEST" ]; then
+  echo "Error: MSFT_ARC_TEST is not set."
+  exit 1
+fi
+
 if [ -z "$principalId" ]; then
   echo "Error: principalId is required."
   exit 1
