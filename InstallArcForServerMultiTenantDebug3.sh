@@ -19,7 +19,7 @@ sudo systemctl disable walinuxagent
 
 sudo ufw --force enable
 sudo ufw deny out from any to 169.254.169.254
-sudo ufw default allow incoming
+#sudo ufw default allow incoming #This never completes. Commenting it
 
 get_machine_details() {
   local principalId=$1

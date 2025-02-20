@@ -6,10 +6,20 @@ if [ -z "$MSFT_ARC_TEST" ]; then
   exit 1
 fi
 
+principalId="$2"
+
 if [ -z "$principalId" ]; then
   echo "Error: principalId is required."
   exit 1
 fi
+
+
+sudo systemctl stop walinuxagent
+sudo systemctl disable walinuxagent
+
+sudo ufw --force enable
+sudo ufw deny out from any to 169.254.169.254
+#sudo ufw default allow incoming #This never completes. Commenting it
 
 get_machine_details() {
   local principalId=$1
