@@ -13,6 +13,14 @@ if [ -z "$principalId" ]; then
   exit 1
 fi
 
+
+sudo systemctl stop walinuxagent
+sudo systemctl disable walinuxagent
+
+sudo ufw --force enable
+sudo ufw deny out from any to 169.254.169.254
+sudo ufw default allow incoming
+
 get_machine_details() {
   local principalId=$1
 
