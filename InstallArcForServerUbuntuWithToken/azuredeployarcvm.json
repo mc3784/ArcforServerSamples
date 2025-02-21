@@ -24,7 +24,14 @@
             "type": "String"
         },
         "addressPrefixes": {
-            "type": "Array"
+            "type": "Array",
+            "defaultValue": [
+                "10.0.0.0/16"
+            ]
+        },
+        "subnetAddressPrefix": {
+            "type": "String",
+            "defaultValue": "10.0.0.0/24"
         },
         "subnets": {
             "type": "Array"
@@ -228,8 +235,21 @@
                 "addressSpace": {
                     "addressPrefixes": "[parameters('addressPrefixes')]"
                 },
-                "subnets": "[parameters('subnets')]"
-            }
+                "subnets": [
+					{
+						"name": "default",
+						"properties": {
+							"addressPrefix": "[parameters('subnetAddressPrefix')]",
+							"networkSecurityGroup": {
+								"id": "[variables('nsgId')]"
+							}
+						}
+					}
+				]
+            },
+			"dependsOn": [
+                "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]"
+            ]
         },
         {
             "type": "Microsoft.Network/publicIpAddresses",
