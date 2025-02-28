@@ -53,12 +53,6 @@ sudo ufw --force enable
 sudo ufw deny out from any to 169.254.169.254
 sudo ufw default allow incoming
 
-# Install the hybrid agent
-bash /tmp/install_linux_azcmagent.sh;
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
 export subscriptionId=$subscriptionID;
 export resourceGroup=$resourceGroupName;
 export tenantId=$TENANT_ID;
