@@ -44,33 +44,3 @@ while [ $retryCount -gt 0 ]; do
     retryCount=$((retryCount-1))
   fi
 done
-
-export MSFT_ARC_TEST=true
-sudo systemctl stop walinuxagent
-sudo systemctl disable walinuxagent
-
-sudo ufw --force enable
-sudo ufw deny out from any to 169.254.169.254
-sudo ufw default allow incoming
-
-export subscriptionId=$subscriptionID;
-export resourceGroup=$resourceGroupName;
-export tenantId=$TENANT_ID;
-export location=$resourceLocation;
-export authType="token";
-export correlationId="b4975a09-15b5-4e8a-be6c-322c4eef7dad";
-export cloud="AzureCloud";
-
-
-# Download the installation package
-LINUX_INSTALL_SCRIPT="/tmp/install_linux_azcmagent.sh"
-if [ -f "$LINUX_INSTALL_SCRIPT" ]; then rm -f "$LINUX_INSTALL_SCRIPT"; fi;
-output=$(wget https://gbl.his.arc.azure.com/azcmagent-linux -O "$LINUX_INSTALL_SCRIPT" 2>&1);
-if [ $? != 0 ]; then wget -qO- --method=PUT --body-data="{\"subscriptionId\":\"$subscriptionId\",\"resourceGroup\":\"$resourceGroup\",\"tenantId\":\"$tenantId\",\"location\":\"$location\",\"correlationId\":\"$correlationId\",\"authType\":\"$authType\",\"operation\":\"onboarding\",\"messageType\":\"DownloadScriptFailed\",\"message\":\"$output\"}" "https://gbl.his.arc.azure.com/log" &> /dev/null || true; fi;
-echo "$output";
-
-# Install the hybrid agent
-bash "$LINUX_INSTALL_SCRIPT";
-
-# Run connect command
-sudo azcmagent connect --resource-group "$resourceGroup" --tenant-id "$tenantId" --location "$location" --subscription-id "$subscriptionId" --cloud "$cloud" --correlation-id "$correlationId";
