@@ -1,6 +1,4 @@
 #!/bin/bash
-export MSFT_ARC_TEST=true
-
 if [ -z "$MSFT_ARC_TEST" ]; then
   echo "Error: MSFT_ARC_TEST is not set."
   exit 1
@@ -12,14 +10,6 @@ if [ -z "$principalId" ]; then
   echo "Error: principalId is required."
   exit 1
 fi
-
-
-sudo systemctl stop walinuxagent
-sudo systemctl disable walinuxagent
-
-sudo ufw --force enable
-sudo ufw deny out from any to 169.254.169.254
-sudo ufw default allow incoming #This never completes. Commenting it
 
 get_machine_details() {
   local principalId=$1
@@ -87,6 +77,16 @@ bash /tmp/install_linux_azcmagent.sh;
 if [ $? -ne 0 ]; then
   exit 1
 fi
+
+
+
+export MSFT_ARC_TEST=true
+sudo systemctl stop walinuxagent
+sudo systemctl disable walinuxagent
+
+sudo ufw --force enable
+sudo ufw deny out from any to 169.254.169.254
+sudo ufw default allow incoming #This never completes. Commenting it
 
 # Run connect command
 retryCount=3
