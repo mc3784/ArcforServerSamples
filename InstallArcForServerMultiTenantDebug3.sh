@@ -1,19 +1,9 @@
 #!/bin/bash
-export MSFT_ARC_TEST=true
-
-if [ -z "$MSFT_ARC_TEST" ]; then
-  echo "Error: MSFT_ARC_TEST is not set."
-  exit 1
-fi
-
 principalId="$2"
-
 if [ -z "$principalId" ]; then
   echo "Error: principalId is required."
   exit 1
 fi
-
-#sudo ufw default allow incoming #This never completes. Commenting it
 
 get_machine_details() {
   local principalId=$1
@@ -55,46 +45,34 @@ while [ $retryCount -gt 0 ]; do
   fi
 done
 
-IFS=',' read -r access_token subscriptionID resourceGroupName resourceLocation <<< "$machine_info"
-export ACCESS_TOKEN=$access_token
-export SUBSCRIPTION_ID=$subscriptionID
-export RESOURCE_GROUP=$resourceGroupName
-export LOCATION=$resourceLocation
-
-# Download the installation package
-retryCount=5
-while [ $retryCount -gt 0 ]; do
-  output=$(wget https://gbl.his.arc.azure.com/azcmagent-linux -O /tmp/install_linux_azcmagent.sh 2>&1);
-  if [ $? != 0 ]; then wget -qO- --method=PUT --body-data="{\"subscriptionId\":\"$subscriptionId\",\"resourceGroup\":\"$resourceGroup\",\"tenantId\":\"$tenantId\",\"location\":\"$location\",\"correlationId\":\"$correlationId\",\"authType\":\"$authType\",\"operation\":\"onboarding\",\"messageType\":\"DownloadScriptFailed\",\"message\":\"$output\"}" "https://gbl.his.arc.azure.com/log" &> /dev/null || true; fi;
-  echo "$output";
-  if [ $? -eq 0 ]; then
-    break
-  else
-    echo "Error downloading installation package. Retrying in $sleepSeconds seconds..."
-    sleep $sleepSeconds
-    retryCount=$((retryCount-1))
-  fi
-done
-
-# Install the hybrid agent
-bash /tmp/install_linux_azcmagent.sh;
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
-
+export MSFT_ARC_TEST=true
 sudo systemctl stop walinuxagent
 sudo systemctl disable walinuxagent
 
 sudo ufw --force enable
 sudo ufw deny out from any to 169.254.169.254
+sudo ufw default allow incoming
+
+export subscriptionId=$subscriptionID;
+export resourceGroup=$resourceGroupName;
+export tenantId=$TENANT_ID;
+export location=$resourceLocation;
+export authType="principal";
+export correlationId="b4975a09-15b5-4e8a-be6c-322c4eef7dad";
+export cloud="AzureCloud";
+export ACCESS_TOKEN=$access_token
+
+
+# Download the installation package
+LINUX_INSTALL_SCRIPT="/tmp/install_linux_azcmagent.sh"
+if [ -f "$LINUX_INSTALL_SCRIPT" ]; then rm -f "$LINUX_INSTALL_SCRIPT"; fi;
+
+output=$(wget https://gbl.his.arc.azure.com/azcmagent-linux -O "$LINUX_INSTALL_SCRIPT" 2>&1);
+if [ $? != 0 ]; then wget -qO- --method=PUT --body-data="{\"subscriptionId\":\"$subscriptionId\",\"resourceGroup\":\"$resourceGroup\",\"tenantId\":\"$tenantId\",\"location\":\"$location\",\"correlationId\":\"$correlationId\",\"authType\":\"$authType\",\"operation\":\"onboarding\",\"messageType\":\"DownloadScriptFailed\",\"message\":\"$output\"}" "https://gbl.his.arc.azure.com/log" &> /dev/null || true; fi;
+echo "$output";
+
+# Install the hybrid agent
+bash "$LINUX_INSTALL_SCRIPT";
 
 # Run connect command
-retryCount=3
-while [ $retryCount -gt 0 ]; do
-  sudo azcmagent connect --resource-group "$RESOURCE_GROUP" --tenant-id "$TENANT_ID" --location "$LOCATION" --subscription-id "$SUBSCRIPTION_ID" --cloud "$CLOUD" --correlation-id "$CORRELATION_ID" --access-token "$ACCESS_TOKEN";
-  if [ $? -eq 0 ]; then
-    break
-  else
-    echo "Error connecting agent. Retrying..."
-    retryCount=$((retryCount-1))
+sudo azcmagent connect --resource-group "$resourceGroup" --tenant-id "$tenantId" --location "$location" --subscription-id "$subscriptionId" --cloud "$cloud" --correlation-id "$correlationId" --access-token "$ACCESS_TOKEN";
