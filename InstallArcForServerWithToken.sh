@@ -45,26 +45,24 @@ while [ $retryCount -gt 0 ]; do
   fi
 done
 
-# Install the hybrid agent
-bash /tmp/install_linux_azcmagent.sh;
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
-sudo export MSFT_ARC_TEST=true
 export MSFT_ARC_TEST=true
 sudo systemctl stop walinuxagent
 sudo systemctl disable walinuxagent
 
 sudo ufw --force enable
 sudo ufw deny out from any to 169.254.169.254
-sudo ufw default allow incoming #This never completes. Commenting it
+sudo ufw default allow incoming
 
+# Install the hybrid agent
+bash /tmp/install_linux_azcmagent.sh;
+if [ $? -ne 0 ]; then
+  exit 1
+fi
 
 export subscriptionId=$subscriptionID;
 export resourceGroup=$resourceGroupName;
 export tenantId=$TENANT_ID;
-export location=resourceLocation;
+export location=$resourceLocation;
 export authType="token";
 export correlationId="b4975a09-15b5-4e8a-be6c-322c4eef7dad";
 export cloud="AzureCloud";
