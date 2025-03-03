@@ -4,6 +4,7 @@ if [ -z "$principalId" ]; then
   echo "Error: principalId is required."
   exit 1
 fi
+
 export AZUREURI="https://management.azure.com/"
 
 get_machine_details() {
