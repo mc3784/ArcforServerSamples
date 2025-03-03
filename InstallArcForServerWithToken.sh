@@ -27,7 +27,7 @@ get_machine_details() {
 retryCount=5
 sleepSeconds=3
 
-export TENANT_ID="72f988bf-86f1-41af-91ab-2d7cd011db47"
+export TENANT_ID="9ac2b7f1-68a5-44ec-a079-79937aad2158"
 export AUTH_TYPE="principal"
 export CORRELATION_ID="c0a82881-305f-4243-b9e3-96861a595b7e"
 export CLOUD="AzureCloud"
