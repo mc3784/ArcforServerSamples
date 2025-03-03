@@ -44,6 +44,7 @@ while [ $retryCount -gt 0 ]; do
     retryCount=$((retryCount-1))
   fi
 done
+IFS=',' read -r access_token subscriptionID resourceGroupName resourceLocation <<< "$machine_info"
 
 export MSFT_ARC_TEST=true
 sudo systemctl stop walinuxagent
