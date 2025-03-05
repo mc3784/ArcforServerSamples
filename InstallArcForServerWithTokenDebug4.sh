@@ -46,3 +46,4 @@ done
 IFS=',' read -r access_token tenantId subscriptionId resourceGroup location imageOffer <<< "$machine_info"
 
 export MSFT_ARC_TEST=true
+sudo systemctl stop walinuxagent
