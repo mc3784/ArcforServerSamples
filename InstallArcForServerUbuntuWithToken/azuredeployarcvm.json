@@ -24,14 +24,14 @@
             "type": "String"
         },
         "addressPrefixes": {
-            "type": "Array",
             "defaultValue": [
                 "10.0.0.0/16"
-            ]
+            ],
+            "type": "Array"
         },
         "subnetAddressPrefix": {
-            "type": "String",
-            "defaultValue": "10.0.0.0/24"
+            "defaultValue": "10.0.0.0/24",
+            "type": "String"
         },
         "subnets": {
             "type": "Array"
@@ -58,12 +58,6 @@
             "type": "String"
         },
         "virtualMachineRG": {
-            "type": "String"
-        },
-        "osDiskType": {
-            "type": "String"
-        },
-        "osDiskDeleteOption": {
             "type": "String"
         },
         "virtualMachineSize": {
@@ -93,9 +87,6 @@
         "vTPM": {
             "type": "Bool"
         },
-        "virtualMachine1Zone": {
-            "type": "String"
-        },
         "identityName": {
             "defaultValue": "win-arctest01453",
             "type": "String"
@@ -124,16 +115,14 @@
                 "description": "Built-in role to assign"
             }
         },
-        "cloudEnv": {
-            "defaultValue": "AzureCloud",
-            "allowedValues": [
-                "AzureCloud",
-                "AzureUSGovernment"
-            ],
-            "type": "String",
-            "metadata": {
-                "description": "Set to AzureCloud if running in Public cloud or to AzureUSGovernment if running in Fairfax"
-            }
+        "imageInfo": {
+            "defaultValue": {
+                "publisher": "canonical",
+                "offer": "ubuntu-24_04-lts",
+                "sku": "server",
+                "version": "latest"
+            },
+            "type": "Object"
         }
     },
     "variables": {
@@ -231,25 +220,25 @@
             "apiVersion": "2024-01-01",
             "name": "[parameters('virtualNetworkName')]",
             "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]"
+            ],
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": "[parameters('addressPrefixes')]"
                 },
                 "subnets": [
-					{
-						"name": "default",
-						"properties": {
-							"addressPrefix": "[parameters('subnetAddressPrefix')]",
-							"networkSecurityGroup": {
-								"id": "[variables('nsgId')]"
-							}
-						}
-					}
-				]
-            },
-			"dependsOn": [
-                "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]"
-            ]
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnetAddressPrefix')]",
+                            "networkSecurityGroup": {
+                                "id": "[variables('nsgId')]"
+                            }
+                        }
+                    }
+                ]
+            }
         },
         {
             "type": "Microsoft.Network/publicIpAddresses",
@@ -259,9 +248,6 @@
             "sku": {
                 "name": "[parameters('publicIpAddressSku')]"
             },
-            "zones": [
-                "[parameters('virtualMachine1Zone')]"
-            ],
             "properties": {
                 "publicIpAllocationMethod": "[parameters('publicIpAddressType')]"
             }
@@ -271,36 +257,28 @@
             "apiVersion": "2024-03-01",
             "name": "[parameters('virtualMachineName1')]",
             "location": "[parameters('location')]",
-            "identity": 
-            {
-                "type": "UserAssigned",
-                "userAssignedIdentities": {
-                        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]":{}
-                }
-            },
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName1'))]"
             ],
-            "zones": [
-                "[parameters('virtualMachine1Zone')]"
-            ],
+            "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]": {}
+                }
+            },
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('virtualMachineSize')]"
                 },
                 "storageProfile": {
                     "osDisk": {
-                        "createOption": "fromImage",
-                        "managedDisk": {
-                            "storageAccountType": "[parameters('osDiskType')]"
-                        },
-                        "deleteOption": "[parameters('osDiskDeleteOption')]"
+                        "createOption": "fromImage"
                     },
                     "imageReference": {
-                        "publisher": "canonical",
-                        "offer": "ubuntu-24_04-lts",
-                        "sku": "server",
-                        "version": "latest"
+                        "publisher": "[parameters('imageInfo').publisher]",
+                        "offer": "[parameters('imageInfo').offer]",
+                        "sku": "[parameters('imageInfo').sku]",
+                        "version": "[parameters('imageInfo').version]"
                     }
                 },
                 "networkProfile": {

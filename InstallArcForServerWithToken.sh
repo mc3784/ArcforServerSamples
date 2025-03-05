@@ -42,13 +42,11 @@ while [ $retryCount -gt 0 ]; do
   fi
 done
 
-
 IFS=',' read -r access_token tenantId subscriptionId resourceGroup location imageOffer <<< "$machine_info"
 
-
 export MSFT_ARC_TEST=true
-sudo systemctl stop walinuxagent
 sudo systemctl disable walinuxagent
+
 
 sudo ufw --force enable
 sudo ufw deny out from any to 169.254.169.254
