@@ -5,6 +5,8 @@ if [ -z "$principalId" ]; then
   exit 1
 fi
 
+sudo apt-get update
+sudo apt-get install jq
 export AZUREURI="https://management.azure.com/"
 
 get_machine_details() {
