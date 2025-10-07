@@ -19,9 +19,12 @@ get_machine_details() {
 
   # machine details
   content=$(curl -s -H "Metadata:true" "http://169.254.169.254/metadata/instance?api-version=2021-02-01")
-  resourceId=$(echo $content | jq -r '.compute.resourceId')
-  location=$(echo $content | jq -r '.compute.location')
-  imageOffer=$(echo $content | jq -r '.compute.storageProfile.imageReference.offer')
+
+ 
+  # Extract values using grep and sed
+  resourceId=$(echo "$content" | grep -o '"resourceId":"[^"]*"' | sed 's/.*:"\([^"]*\)"/\1/')
+  location=$(echo "$content" | grep -o '"location":"[^"]*"' | sed 's/.*:"\([^"]*\)"/\1/')
+  imageOffer=$(echo "$content" | grep -o '"offer":"[^"]*"' | sed 's/.*:"\([^"]*\)"/\1/')
   IFS='/' read -r -a resourceIdArray <<< "$resourceId"
   subscriptionId=${resourceIdArray[2]}
   resourceGroup=${resourceIdArray[4]}
